@@ -9,9 +9,8 @@ module pong
 );
 
     wire vga_clk;
-    wire w_hsync;
-    wire w_vsync;
-    wire show_ball;
+    wire w_hsync, w_vsync;
+    wire show_ball, show_paddle1;
 
     reg [9:0] row_counter;
     reg [9:0] col_counter;
@@ -39,9 +38,17 @@ module pong
         .ball_present(show_ball)
     );
 
+    paddle paddle1_inst
+    (
+        .clk(FPGA_CLK),
+        .row(row_counter),
+        .col(col_counter),
+        .paddle_present(show_paddle1)
+    );
+
     assign VGA_HSYNC = w_hsync;
     assign VGA_VSYNC = w_vsync;
 
-    assign {VGA_R, VGA_G, VGA_B} = {3{show_ball}};
+    assign {VGA_R, VGA_G, VGA_B} = {3{show_ball || show_paddle1}};
 
 endmodule
