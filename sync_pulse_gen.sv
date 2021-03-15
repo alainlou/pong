@@ -3,8 +3,8 @@ module sync_pulse_gen
     input clk,
     output HSync,
     output VSync,
-    output reg [9:0] row,
-    output reg [9:0] col
+    output reg [$clog2(TOTAL_ROWS)-1:0] row,
+    output reg [$clog2(TOTAL_COLS)-1:0] col
     );
 
     parameter TOTAL_ROWS = 525, ACTIVE_ROWS = 480, V_FRONT_PORCH = 10, V_BACK_PORCH = 33;
