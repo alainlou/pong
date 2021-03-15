@@ -11,6 +11,7 @@ module pong
     wire vga_clk;
     wire w_hsync;
     wire w_vsync;
+    wire show_ball;
 
     reg [9:0] row_counter;
     reg [9:0] col_counter;
@@ -30,11 +31,17 @@ module pong
         .col(col_counter)
     );
 
+    ball ball_inst
+    (
+        .clk(FPGA_CLK),
+        .row(row_counter),
+        .col(col_counter),
+        .ball_present(show_ball)
+    );
+
     assign VGA_HSYNC = w_hsync;
     assign VGA_VSYNC = w_vsync;
 
-    assign VGA_R = row_counter < 480 && col_counter < 640;
-    assign VGA_G = row_counter < 480 && col_counter < 640;
-    assign VGA_B = row_counter < 480 && col_counter < 640;
+    assign {VGA_R, VGA_G, VGA_B} = {3{show_ball}};
 
 endmodule
