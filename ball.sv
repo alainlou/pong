@@ -23,11 +23,11 @@ module ball
             // update direction if necessary
             if (y_pos == 0)
                 dir = dir == UP_RIGHT ? DOWN_RIGHT : DOWN_LEFT;
-            else if (y_pos == ACTIVE_ROWS-SIDE_LEN/2)
+            else if (y_pos == ACTIVE_ROWS-SIDE_LEN)
                 dir = dir == DOWN_RIGHT ? UP_RIGHT : UP_LEFT;
             if (x_pos == 0)
                 dir = dir == UP_LEFT ? UP_RIGHT : DOWN_RIGHT;
-            else if (x_pos == ACTIVE_COLS-SIDE_LEN/2)
+            else if (x_pos == ACTIVE_COLS-SIDE_LEN)
                 dir = dir == UP_RIGHT ? UP_LEFT : DOWN_LEFT;
 
             // update position

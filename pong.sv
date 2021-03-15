@@ -8,12 +8,16 @@ module pong
     output VGA_B
 );
 
+    parameter TOTAL_ROWS = 525, ACTIVE_ROWS = 480;
+    parameter TOTAL_COLS = 800, ACTIVE_COLS = 640;
+
     wire vga_clk;
     wire w_hsync, w_vsync;
+    wire border;
     wire show_ball, show_paddle1;
 
-    reg [9:0] row_counter;
-    reg [9:0] col_counter;
+    reg [$clog2(TOTAL_ROWS):0] row_counter;
+    reg [$clog2(TOTAL_COLS):0] col_counter;
 
     pll pll_inst
     (
@@ -48,7 +52,6 @@ module pong
 
     assign VGA_HSYNC = w_hsync;
     assign VGA_VSYNC = w_vsync;
-
     assign {VGA_R, VGA_G, VGA_B} = {3{show_ball || show_paddle1}};
 
 endmodule
