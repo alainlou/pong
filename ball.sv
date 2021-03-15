@@ -1,10 +1,10 @@
 module ball
-    (
+(
     input clk,
     input [9:0] row,
     input [9:0] col,
     output ball_present
-    );
+);
 
     parameter CLKS_PER_MOVE=250_000;
 

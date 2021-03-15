@@ -1,12 +1,12 @@
 module pong
-    (
+(
     input FPGA_CLK,
     output VGA_HSYNC,
     output VGA_VSYNC,
     output VGA_R,
     output VGA_G,
     output VGA_B
-    );
+);
 
     wire vga_clk;
     wire w_hsync;
