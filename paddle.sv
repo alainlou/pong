@@ -5,6 +5,7 @@ module paddle
     input down,
     input [$clog2(ACTIVE_ROWS)-1:0] row,
     input [$clog2(ACTIVE_COLS)-1:0] col,
+    output [$clog2(ACTIVE_COLS)-1:0] pos,
     output paddle_present
 );
 
@@ -19,7 +20,7 @@ module paddle
 
     always @(posedge clk) begin
         if (counter == CLKS_PER_MOVE) begin
-            counter = 0;
+            counter <= 0;
 
             // update position if necessary
             if (up && !down && y_pos >= 5)
@@ -27,9 +28,10 @@ module paddle
             else if (down && !up && y_pos < ACTIVE_ROWS-HEIGHT-3)
                 y_pos <= y_pos + 1;
         end else
-            counter = counter + 1;
+            counter <= counter + 1;
     end
 
     assign paddle_present = row >= y_pos && row < y_pos+HEIGHT && col >= x_pos && col < x_pos+WIDTH;
+    assign pos = y_pos;
 
 endmodule

@@ -38,11 +38,15 @@ module pong
         .col(col_counter)
     );
 
+    wire [$clog2(ACTIVE_COLS)-1:0] pos1;
+    wire [$clog2(ACTIVE_COLS)-1:0] pos2;
     ball ball_inst
     (
         .clk(FPGA_CLK),
         .row(row_counter),
         .col(col_counter),
+        .pos1(pos1),
+        .pos2(pos2),
         .ball_present(show_ball)
     );
 
@@ -55,7 +59,8 @@ module pong
         .down(p1_down),
         .row(row_counter),
         .col(col_counter),
-        .paddle_present(show_paddle1)
+        .paddle_present(show_paddle1),
+        .pos(pos1)
     );
     defparam paddle1_inst.IS_LEFT_PADDLE = 1'b1;
 
@@ -68,7 +73,8 @@ module pong
         .down(p2_down),
         .row(row_counter),
         .col(col_counter),
-        .paddle_present(show_paddle2)
+        .paddle_present(show_paddle2),
+        .pos(pos2)
     );
     defparam paddle2_inst.IS_LEFT_PADDLE = 1'b0;
 
