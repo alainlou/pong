@@ -21,9 +21,9 @@ module ball
             counter = 0;
 
             // update direction if necessary
-            if (y_pos == 0)
+            if (y_pos == 5)
                 dir = dir == UP_RIGHT ? DOWN_RIGHT : DOWN_LEFT;
-            else if (y_pos == ACTIVE_ROWS-SIDE_LEN)
+            else if (y_pos >= ACTIVE_ROWS-SIDE_LEN-3)
                 dir = dir == DOWN_RIGHT ? UP_RIGHT : UP_LEFT;
             if (x_pos == 0)
                 dir = dir == UP_LEFT ? UP_RIGHT : DOWN_RIGHT;
