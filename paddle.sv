@@ -23,11 +23,12 @@ module paddle
             counter <= 0;
 
             // update position if necessary
-            if (up && !down && y_pos >= 5)
+            if (up && !down && y_pos > 3)
                 y_pos <= y_pos - 1;
             else if (down && !up && y_pos < ACTIVE_ROWS-HEIGHT-3)
                 y_pos <= y_pos + 1;
-        end else
+        end
+        else
             counter <= counter + 1;
     end
 

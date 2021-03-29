@@ -1,6 +1,7 @@
 module pong
 (
     input FPGA_CLK,
+    input RESET,
     input KEY1,
     input KEY2,
     input KEY3,
@@ -38,11 +39,13 @@ module pong
         .col(col_counter)
     );
 
+    wire reset = !RESET;
     wire [$clog2(ACTIVE_COLS)-1:0] pos1;
     wire [$clog2(ACTIVE_COLS)-1:0] pos2;
     ball ball_inst
     (
         .clk(FPGA_CLK),
+        .start(reset),
         .row(row_counter),
         .col(col_counter),
         .pos1(pos1),
@@ -78,9 +81,13 @@ module pong
     );
     defparam paddle2_inst.IS_LEFT_PADDLE = 1'b0;
 
-    assign border = row_counter < 5 || row_counter >= ACTIVE_ROWS-3;
+    assign border = row_counter < 3 || row_counter >= ACTIVE_ROWS-3;
     assign VGA_HSYNC = w_hsync;
     assign VGA_VSYNC = w_vsync;
-    assign {VGA_R, VGA_G, VGA_B} = {3{show_ball || show_paddle1 || show_paddle2 || border}};
+    assign {VGA_R, VGA_G, VGA_B} =
+        {3
+            {(show_ball || show_paddle1 || show_paddle2 || border)
+             && row_counter < ACTIVE_ROWS && col_counter < ACTIVE_COLS}
+        };
 
 endmodule
