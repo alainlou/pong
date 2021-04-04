@@ -16,11 +16,6 @@ module pong
     parameter TOTAL_ROWS = 525, ACTIVE_ROWS = 480;
     parameter TOTAL_COLS = 800, ACTIVE_COLS = 640;
 
-    wire vga_clk;
-    wire w_hsync, w_vsync;
-    wire border;
-    wire show_ball, show_paddle1, show_paddle_2;
-
     reg [$clog2(TOTAL_ROWS):0] row_counter;
     reg [$clog2(TOTAL_COLS):0] col_counter;
 
