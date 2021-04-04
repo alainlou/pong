@@ -6,7 +6,9 @@ module ball
     input [$clog2(ACTIVE_COLS)-1:0] col,
     input [$clog2(ACTIVE_ROWS)-1:0] pos1,
     input [$clog2(ACTIVE_ROWS)-1:0] pos2,
-    output ball_present
+    output ball_present,
+    output [3:0] score1,
+    output [3:0] score2
 );
 
     parameter CLKS_PER_MOVE = 250_000;
@@ -35,6 +37,12 @@ module ball
                     dir <= NONE;
                     x_pos = ACTIVE_COLS/2 - SIDE_LEN/2;
                     y_pos = ACTIVE_ROWS/2 - SIDE_LEN/2;
+
+                    if (x_pos == ACTIVE_COLS-1)
+                        score1 <= score1 + 1;
+                    else
+                        score2 <= score2 + 1;
+
                 end
                 else begin
                     // update direction if necessary

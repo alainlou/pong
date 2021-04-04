@@ -10,7 +10,19 @@ module pong
     output VGA_VSYNC,
     output VGA_R,
     output VGA_G,
-    output VGA_B
+    output VGA_B,
+    output SVNSEG_DIG1,
+    output SVNSEG_DIG2,
+    output SVNSEG_DIG3,
+    output SVNSEG_DIG4,
+    output SVNSEG_SEG0,
+    output SVNSEG_SEG1,
+    output SVNSEG_SEG2,
+    output SVNSEG_SEG3,
+    output SVNSEG_SEG4,
+    output SVNSEG_SEG5,
+    output SVNSEG_SEG6,
+    output SVNSEG_SEG7
 );
 
     parameter TOTAL_ROWS = 525, ACTIVE_ROWS = 480;
@@ -45,7 +57,9 @@ module pong
         .col(col_counter),
         .pos1(pos1),
         .pos2(pos2),
-        .ball_present(show_ball)
+        .ball_present(show_ball),
+        .score1(score1),
+        .score2(score2)
     );
 
     wire p1_up = !KEY1;
@@ -84,5 +98,28 @@ module pong
             {(show_ball || show_paddle1 || show_paddle2 || border)
              && row_counter < ACTIVE_ROWS && col_counter < ACTIVE_COLS}
         };
+
+    reg [3:0] score1, score2;
+
+    svnseg_controller controller_inst
+    (
+        .clk(FPGA_CLK),
+        .num3(4'h0),
+        .num2(score1),
+        .num1(4'h0),
+        .num0(score2),
+        .dig1(SVNSEG_DIG1),
+        .dig2(SVNSEG_DIG2),
+        .dig3(SVNSEG_DIG3),
+        .dig4(SVNSEG_DIG4),
+        .seg0(SVNSEG_SEG0),
+        .seg1(SVNSEG_SEG1),
+        .seg2(SVNSEG_SEG2),
+        .seg3(SVNSEG_SEG3),
+        .seg4(SVNSEG_SEG4),
+        .seg5(SVNSEG_SEG5),
+        .seg6(SVNSEG_SEG6),
+        .seg7(SVNSEG_SEG7)
+    );
 
 endmodule
