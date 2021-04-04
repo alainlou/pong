@@ -46,6 +46,7 @@ module pong
         .col(col_counter)
     );
 
+    reg [3:0] score1, score2;
     wire reset = !RESET;
     wire [$clog2(ACTIVE_COLS)-1:0] pos1;
     wire [$clog2(ACTIVE_COLS)-1:0] pos2;
@@ -98,8 +99,6 @@ module pong
             {(show_ball || show_paddle1 || show_paddle2 || border)
              && row_counter < ACTIVE_ROWS && col_counter < ACTIVE_COLS}
         };
-
-    reg [3:0] score1, score2;
 
     svnseg_controller controller_inst
     (

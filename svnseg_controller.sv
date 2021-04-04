@@ -75,6 +75,6 @@ module svnseg_controller(
     end
 
     assign {dig4, dig3, dig2, dig1} = digit_select;
-    assign {seg0, seg1, seg2, seg3, seg4, seg5, seg6, seg7} = {curr_output, digit_select != 4'b1101};
+    assign {seg0, seg1, seg2, seg3, seg4, seg5, seg6, seg7} = {curr_output, digit_select != 4'b1011};
 
 endmodule
